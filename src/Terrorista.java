@@ -1,43 +1,80 @@
-public class Terrorista{
+public class Terrorista {
     private String nome;
     private String armamento;
     private int energia;
     private int quantidadeGranadas;
 
-    Terrorista(String nome, String armamento, int energia, int quantidadeGranadas){
-        if(nome.length() >= 4){
+    Terrorista(String nome, String armamento, int energia, int quantidadeGranadas) {
+        if (nome.length() >= 4) {
             this.nome = nome;
         }
-        if(armamento == "Faca" || armamento == "Pistola" || armamento == "Fuzil"){
+        if (armamento == "Faca" || armamento == "Pistola" || armamento == "Fuzil") {
             this.armamento = armamento;
         }
-        if(energia >= 0 && energia <= 10){
+        if (energia >= 0 && energia <= 10) {
             this.energia = energia;
         }
-        if(quantidadeGranadas >= 0 && quantidadeGranadas <= 5){
+        if (quantidadeGranadas >= 0 && quantidadeGranadas <= 5) {
             this.quantidadeGranadas = quantidadeGranadas;
         }
     }
 
-    public void plantarBomba(){
+    // setter e getter
+    public String getArmamento() {
+        return armamento;
+    }
+
+    public void setArmamento(String armamento) {
+        this.armamento = armamento;
+    }
+
+    public int getEnergia() {
+        return energia;
+    }
+
+    public void setEnergiaAtaque(int energia) {
+        this.energia = Math.max(this.energia - energia, 0);
+        // this.energia -= energia;
+    }
+
+    public void setEnergiaPassaVez(int energia) {
+        this.energia = Math.min(this.energia + energia, 10);
+
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEnergiaGranada(int energia){
+        this.energia = Math.max(this.energia - energia, 0);
+    }
+    public int getEnergiaGranada(){
+        return energia;
+    }
+
+    public void plantarBomba() {
         System.out.println(nome + " plantando bomba... ");
     }
 
-    public void lancarGranada(){
-        if(quantidadeGranadas > 0){ 
-            System.out.println(nome + " lançando granada... ");
+    public void lancarGranada(int danoGranada) {
+        if (quantidadeGranadas > 0) {
+            System.out.println(nome + " lançando granada...   (" + danoGranada + ")");
             quantidadeGranadas--;
-        }
-        else{
+        } else {
             System.out.println(nome + " não tem granada");
-        } 
+        }
     }
 
-    public void atacar(){
-        System.out.println(nome + " atacando... ");
+    public void atacar() {
+        System.out.println(nome + " atacando com " + armamento);
     }
 
-    public void passarAVez(){
+    public void passarAVez() {
         System.out.println(nome + " passou a vez... ");
     }
 }
