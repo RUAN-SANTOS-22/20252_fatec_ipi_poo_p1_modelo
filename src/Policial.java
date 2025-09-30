@@ -67,25 +67,25 @@ public class Policial {
     }
 
 
-    public int desarmarBomba() {
-        System.out.println(nome + " desarmando bomba... ");
+    public int desarmarBomba(String mapa) {
+        System.out.println(nome + " desarmando bomba " + mapa);
         return 1;
     }
 
-    public void lancarGranada(int danoGranada) {
+    public void lancarGranada(int danoGranada, String mapa) {
         if (quantidadeGranadas > 0) {
-            System.out.println(nome + " lançando granada...   (" + danoGranada + ")");
+            System.out.println(nome + " lançando granada (" + danoGranada + ") " + mapa);
             quantidadeGranadas--;
         } else {
             System.out.println(nome + " não tem granada");
         }
     }
 
-    public void atacar() {
-        System.out.println(nome + " atacando com " + armamento);
+    public void atacar(String mapa) {
+        System.out.println(nome + " atacando com " + armamento + mapa);
     }
 
-    public void passarAVez() {
-        System.out.println(nome + " passou a vez... ");
+    public void passarAVez(String mapa) {
+        System.out.println(nome + " passou a vez " + mapa);
     }
 }
