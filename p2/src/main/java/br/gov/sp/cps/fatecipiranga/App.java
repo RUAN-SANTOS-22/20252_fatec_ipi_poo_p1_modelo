@@ -8,6 +8,9 @@ import br.gov.sp.cps.fatecipiranga.model.Policial;
 
 import br.gov.sp.cps.fatecipiranga.model.Terrorista;
 
+import br.gov.sp.cps.fatecipiranga.db.HistoricoAtaqueDAO;
+
+
 public class App {
     public static void main(String[] args) throws Exception {
         // loop do jogo
@@ -194,6 +197,13 @@ public class App {
                     p1Vence++;
                 }
             }
+            System.out.println("\n=================================================");
+            p1.exibeHistoricoArmas();
+            p2.exibeHistoricoArmas();
+            System.out.println("=================================================\n");
+            // p1.limpaHistoricoArma();
+            // p2.limpaHistoricoArma();
+            
             p1.setResetaEnergia();
             p1.setResetaGranada();
             p2.setResetaEnergia();
@@ -212,6 +222,32 @@ public class App {
             System.out.println(
                     p1.getNome() + " perdeu a partida com " + p2Vence + " derrota(s) e " + p1Vence + " vitória(s)! ");
         }
+
+        
+        try {
+            var historicoAtaqueDAO = new HistoricoAtaqueDAO();
+            
+            var historicosP1 = p1.processaHistoricoBanco();
+            for (var historico : historicosP1) {
+                historicoAtaqueDAO.cadastrar(historico);
+            }
+            
+            var historicosP2 = p2.processaHistoricoBanco();
+            for (var historico : historicosP2) {
+                historicoAtaqueDAO.cadastrar(historico);
+            }
+            
+            System.out.println("Histórico de ataques salvo no banco de dados!");
+
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar histórico no banco: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        p1.limpaHistoricoArma();
+        p2.limpaHistoricoArma();
+
     }
+    
 
 }

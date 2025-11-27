@@ -4,7 +4,13 @@ import lombok.Data;
 
 @Data
 public class Pistola {
-    private int dano = 2;
+    private String titulo;
+    private int dano;
+
+    public Pistola (){
+        titulo = "pistola";
+        dano = 2;
+    }
 
     public int atacar(){
         return dano;

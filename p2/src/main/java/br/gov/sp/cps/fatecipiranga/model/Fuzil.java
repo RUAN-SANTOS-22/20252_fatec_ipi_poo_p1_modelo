@@ -4,7 +4,13 @@ import lombok.Data;
 
 @Data
 public class Fuzil {
-    private int dano = 3;
+    private String titulo;
+    private int dano;
+
+    public Fuzil (){
+        titulo = "fuzil";
+        dano = 3;
+    }
 
     public int atacar(){
         return dano;

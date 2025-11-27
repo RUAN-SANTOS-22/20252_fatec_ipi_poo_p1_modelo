@@ -1,5 +1,7 @@
 package br.gov.sp.cps.fatecipiranga.model;
 
+import java.util.ArrayList;
+
 import java.util.Random;
 
 import lombok.Data;
@@ -13,6 +15,7 @@ public class Policial {
     private Faca faca = new Faca();
     private Fuzil fuzil = new Fuzil();
     private Pistola pistola = new Pistola(); 
+    private ArrayList<String> historicoArma = new ArrayList<>();
 
     public Policial(String nome, int energia, int quantidadeGranadas) {
         if (nome.length() >= 4) {
@@ -74,14 +77,17 @@ public class Policial {
 
         if (armamento == 1) {
             System.out.println(nome + " atacando com faca " + mapa);
+            historicoArma.add("faca");
             return faca.atacar();
 
         } else if (armamento == 2) {
             System.out.println(nome + " atacando com pistola " + mapa);
+            historicoArma.add("pistola");
             return pistola.atacar();
 
         } else {
             System.out.println(nome + " atacando com fuzil " + mapa);
+            historicoArma.add("fuzil");
             return fuzil.atacar();
         }
     }
@@ -90,5 +96,43 @@ public class Policial {
         System.out.println(nome + " passou a vez " + mapa);
     }
 
+    public void exibeHistoricoArmas(){
+        // for (ArrayList exibeHistoricoArmas:  )
+            System.out.println("Historico de armas do "+ nome + historicoArma);
+    }
     
+    public void limpaHistoricoArma(){
+        historicoArma.clear();
+    }
+
+    public ArrayList<HistoricoAtaque> processaHistoricoBanco() {
+
+    ArrayList<HistoricoAtaque> historicos = new ArrayList<>();
+    int contadorFaca = 0;
+    int contadorPistola = 0;
+    int contadorFuzil = 0;
+
+    for (String arma : historicoArma) {
+        if (arma == "faca") {
+            contadorFaca++;
+        } else if (arma == "pistola") {
+            contadorPistola++;
+        } else if (arma =="fuzil") {
+            contadorFuzil++;
+        }
+    }
+
+    if (contadorFaca > 0) {
+        historicos.add(new HistoricoAtaque(this.nome, "faca", contadorFaca));
+    }
+    if (contadorPistola > 0) {
+        historicos.add(new HistoricoAtaque(this.nome, "pistola", contadorPistola));
+    }
+    if (contadorFuzil > 0) {
+        historicos.add(new HistoricoAtaque(this.nome, "fuzil", contadorFuzil));
+    }
+
+    return historicos;
+}
+
 }
